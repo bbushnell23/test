@@ -1,7 +1,7 @@
 import os
 
 input_file = '/etc/passwd'
-output_file = 'docs/test1.txt'
+output_file = '/docs/test1.txt'
 
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
 
