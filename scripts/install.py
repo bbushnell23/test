@@ -1,12 +1,17 @@
-import os
+import subprocess
 
-input_file = '/etc/passwd'
-output_file = '/docs/test1.txt'
+# Define the output file path
+output_file = 'test.txt'
 
-os.makedirs(os.path.dirname(output_file), exist_ok=True)
+# Attempt to run the command and write the output
+try:
+    result = subprocess.run(['whoami'], capture_output=True, text=True, check=True)
+    output = result.stdout.strip()  # Get the output and strip any extra whitespace
+except subprocess.CalledProcessError as e:
+    output = f"Command failed with error: {e.stderr.strip()}"
+except Exception as e:
+    output = f"An unexpected error occurred: {str(e)}"
 
-with open(input_file, 'r') as infile:
-    contents = infile.read()
-
+# Write the output to the file
 with open(output_file, 'w') as outfile:
-    outfile.write(contents)
+    outfile.write(output)
